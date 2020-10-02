@@ -4,6 +4,22 @@ include_once('includes/custom-functions.php');
 $function = new custom_functions;
 $settings = $fn->get_configurations();
 $currency = $fn->get_settings('currency');
+
+
+
+require_once __DIR__ .'/vendor/autoload.php';
+
+//Grap the variables
+
+
+
+//create pdf instance
+$mpdf =new \Mpdf\Mpdf();
+
+
+
+//Creating Pdf
+$data ='';
 ?>
 
 <?php
@@ -87,8 +103,8 @@ $order_list = $encoded_items;
 }
 
 </style>
-
-<section class="content-header">
+<?php
+ $data .= `<section class="content-header">
     <h1>
         Invoice /
         <small><a href="home.php"><i class="fa fa-home"></i> Home</a></small>
@@ -260,8 +276,11 @@ $order_list = $encoded_items;
                     </table>
                 </div>
             </div><!-- /.col -->
-        </div><!-- /.row -->
+        </div><!-- /.row -->`;
 
+        $mpdf->WriteHtml($data);
+
+        ?>
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-xs-12">
